@@ -1,0 +1,39 @@
+<% if flash[:notice] %>
+      <div class="flash">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+
+
+
+<div class="edit-page">
+
+<h2 class="edit-headline"><strong>Editing Book</strong></h2>
+
+<% if @book.errors.any? %>
+      <h2><%= @book.errors.count %>件のerror</h2>
+      <ul>
+      <% @book.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+  <% end %>
+
+	<%= form_for(@book) do |f| %>
+
+	
+
+	<h6 class="form-label">Title</h6>
+	<%= f.text_field :title, class: 'text-box' %>
+	<h6 class="form-label">Body</h6>
+	<%= f.text_area :body, class: 'text-box' %>
+	<%= f.submit 'Update Book', class: 'button' %>
+<% end %>
+
+<div class="nav-list">
+	<%= link_to 'Show', book_path(@book) %>
+	<span>|</span>
+	<%= link_to 'Back', books_path %>
+</div>
+
+</div>

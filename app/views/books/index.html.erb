@@ -1,0 +1,49 @@
+<% if flash[:notice] %>
+      <div class="flash">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+
+<div class="index-page">
+	<h2 class="index-page-headline"><strong>Books</strong></h2>
+
+	<table>
+		<thead>
+		<tr>
+			<th>Title</th> <th>Body</th> <th colspan="3"></th>
+		</tr>
+	    </thead>
+
+	    <tbody>
+	    <% @books.each do |book| %>
+		<tr>
+			<td><%= book.title %></td>
+			<td><%= book.body %></td>
+			<td><%= link_to 'Show', book_path(book.id), class: 'link-action' %></td>
+			<td><%= link_to 'Edit', edit_book_path(book.id), class: 'link-action' %></td>
+			<td><%= link_to 'Destroy', book_path(book.id), method: :delete, class: 'link-action' %></td>
+		</tr>
+		</tbody>
+		<% end %>
+	</table>
+
+<h3 class="form-headline"><strong>New book</strong></h3>
+
+<%= form_for(@book) do |f| %>
+
+<% if @book.errors.any? %>
+      <h2><%= @book.errors.count %>件のerror</h2>
+      <ul>
+      <% @book.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+  <% end %>
+
+	<h6 class="form-label">Title</h6>
+	<%= f.text_field :title, class: 'text-box' %>
+	<h6 class="form-label">Body</h6>
+	<%= f.text_area :body, class: 'text-box' %>
+	<%= f.submit 'Create Book', class: 'button' %>
+<% end %>
+
